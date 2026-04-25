@@ -36,7 +36,9 @@ export default function Admin() {
     if (!token) { setError('Not authenticated'); return; }
     const headers = { Authorization: `Bearer ${token}` };
     api.get('/admin/summary', { headers }).then(r => setSummary(r.data)).catch(e => setError(e?.response?.data?.error || e.message));
-    api.get('/admin/users',   { headers }).then(r => setUsers(r.data))  .catch(e => setError(e?.response?.data?.error || e.message));
+    api.get('/admin/users', { headers })
+  .then(r => setUsers(r.data))
+  .catch(e => setError(e?.response?.data?.error || e.message));
     fetchCharities(1, '', '');
   }, [token, fetchCharities]);
 
