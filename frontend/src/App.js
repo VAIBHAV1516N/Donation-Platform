@@ -34,7 +34,7 @@ function App() {
             <Route path="/receipt/:donationId" element={<Receipt />} />
             <Route path="/contact-us" element={<ContactUs />} />
             <Route path="/admin" element={<Admin />} />
-	    <Route path="/dashboard" element={<Dashboard />} /> // ← ADD
+	    	<Route path="/dashboard" element={<Dashboard />} />
           </Routes>
         </div>
       </div>
