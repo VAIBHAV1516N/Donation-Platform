@@ -22,9 +22,12 @@ export default function Admin() {
     if (query) params.q      = query;
     if (st)    params.status = st;
     api.get('/admin/charities', { headers, params })
-      .then(r => { setCharities(r.data.data || []); setTotal(r.data.total || 0); setPage(r.data.page || pg); })
-      .catch(e => setError(e?.response?.data?.error || e.message));
-  }, [token]);
+  .then(r => {
+    setCharities(r.data.data || []);
+    setTotal(r.data.total || 0);
+    setPage(r.data.page || pg);
+  })
+  .catch(e => setError(e?.response?.data?.error || e.message));
 
   useEffect(() => {
     if (!token) { setError('Not authenticated'); return; }
