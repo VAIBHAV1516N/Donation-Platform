@@ -16,18 +16,21 @@ export default function Admin() {
   const LIMIT = 10;
 
   const fetchCharities = useCallback((pg = 1, query = '', st = '') => {
-    if (!token) return;
-    const headers = { Authorization: `Bearer ${token}` };
-    const params = { page: pg, limit: LIMIT };
-    if (query) params.q      = query;
-    if (st)    params.status = st;
-    api.get('/admin/charities', { headers, params })
-  .then(r => {
-    setCharities(r.data.data || []);
-    setTotal(r.data.total || 0);
-    setPage(r.data.page || pg);
-  })
-  .catch(e => setError(e?.response?.data?.error || e.message));
+  if (!token) return;
+  const headers = { Authorization: `Bearer ${token}` };
+  const params = { page: pg, limit: LIMIT };
+  if (query) params.q = query;
+  if (st) params.status = st;
+
+  api.get('/admin/charities', { headers, params })
+    .then(r => {
+      setCharities(r.data.data || []);
+      setTotal(r.data.total || 0);
+      setPage(r.data.page || pg);
+    })
+    .catch(e => setError(e?.response?.data?.error || e.message));
+
+}, [token]); // ✅ THIS LINE WAS MISSING
 
   useEffect(() => {
     if (!token) { setError('Not authenticated'); return; }
